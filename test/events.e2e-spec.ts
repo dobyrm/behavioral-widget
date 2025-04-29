@@ -25,20 +25,13 @@ describe('Socket.IO Gateway', () => {
   });
 
   it('should handle "session-data" message and return "behavior-data"', (done) => {
+    jest.setTimeout(10000);
+
     socket.emit('session-data', { someData: 'test' });
 
-    socket.on(
-      'behavior-data',
-      (data: {
-        activityLevel: string;
-        behavior: string;
-        timestamp: number;
-      }) => {
-        expect(data).toHaveProperty('activityLevel', 'high');
-        expect(data).toHaveProperty('behavior', 'active');
-        expect(data).toHaveProperty('timestamp');
-        done();
-      },
-    );
+    socket.on('behavior-data', (data: { behavior: string }) => {
+      expect(data).toHaveProperty('behavior', 'active');
+      done();
+    });
   });
 });

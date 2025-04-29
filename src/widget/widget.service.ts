@@ -10,12 +10,16 @@ export class WidgetService {
     '../../',
     'src',
     'widget',
-    'templates',
-    'widget.template.js',
+    'client-scripts',
+    'client.widget.script.js',
   );
 
   getWidgetScript(theme: string): string {
     try {
+      if (!fs.existsSync(this.templatePath)) {
+        throw new Error('Template file not found');
+      }
+
       const rawTemplate = fs.readFileSync(this.templatePath, 'utf-8');
 
       const backgroundColor = theme === 'dark' ? '#333' : '#f9f9f9';
@@ -29,7 +33,9 @@ export class WidgetService {
 
       return finalScript;
     } catch (error) {
-      this.logger.error(`Failed to generate widget script. Error: ${error}`);
+      this.logger.error(
+        `Failed to generate widget script. Error: ${error.message}`,
+      );
       throw new Error('Failed to generate widget script');
     }
   }

@@ -5,7 +5,7 @@ import { AppModule } from '../src/app.module';
 import { WidgetService } from './../src/widget/widget.service';
 import { Server } from 'http';
 
-describe('GatewayController (e2e)', () => {
+describe('GatewayController', () => {
   let app: INestApplication;
   let widgetService: WidgetService;
 
@@ -19,7 +19,7 @@ describe('GatewayController (e2e)', () => {
     await app.init();
   });
 
-  it('/gateway/widget.js (GET)', async () => {
+  it('should return "client.widget.js"', async () => {
     const theme = 'dark';
     const script = widgetService.getWidgetScript(theme);
 
