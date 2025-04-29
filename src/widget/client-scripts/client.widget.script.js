@@ -23,14 +23,14 @@
     socket.on('connect_error', (error) => console.error('Socket.IO error:', error));
 
     trackUserBehavior();
-    setInterval(sendBehaviorData, 1000);
+    setInterval(sendBehaviorData, 10000);
   };
 
   const createWidgetContainer = () => {
     const container = document.createElement('div');
     Object.assign(container.style, {
       width: '200px',
-      zIndex: '111111',
+      zIndex: '9999',
       border: '1px solid #ccc',
       padding: '10px',
       backgroundColor: '__BACKGROUND_COLOR__',
@@ -42,6 +42,7 @@
       right: '10px',
     });
     container.innerHTML = '<h3>Behavioral Insights</h3><div id="behavior-info">Waiting for data...</div>';
+    
     return container;
   };
 
@@ -64,6 +65,8 @@
   
     if (action === 'displayForm') {
       displayForm(container);
+    } else if (action === 'showBanner') {
+      showBanner();
     }
   };
 
@@ -129,11 +132,44 @@
       socket.emit('form-submission', { name, timestamp: Date.now() });
     }
 
-    form.innerHTML = '<p style="margin: 0; color: #4CAF50; text-align:center;">Thank you!</p>';
+    form.innerHTML = '';
+  };
 
-    setTimeout(() => {
-      form.innerHTML = '';
-    }, 3000);
+  const showBanner = () => {
+    if (document.querySelector('.promo-banner')) return;
+  
+    const banner = createBanner();
+    document.body.appendChild(banner);
+
+  };
+  
+  const createBanner = () => {
+    const banner = document.createElement('div');
+    banner.classList.add('promo-banner');
+    
+    Object.assign(banner.style, {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '8px',
+      marginTop: '10px',
+      padding: '10px 20px',
+      backgroundColor: '#333',
+      color: '#fff',
+      borderRadius: '5px',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+      fontSize: '14px',
+      width: 'auto',
+      maxWidth: '350px',
+      zIndex: '9999',
+      position: 'fixed',
+      bottom: '10px',
+      left: '10px',
+      textAlign: 'center',
+    });
+  
+    banner.textContent = 'This is a promotional banner!';
+  
+    return banner;
   };
 
   const trackUserBehavior = () => {

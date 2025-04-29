@@ -47,6 +47,14 @@ export class EventsGateway {
   handleFormSubmission(@MessageBody() data) {
     console.log('Form submitted:', data);
 
-    return;
+    return {
+      event: 'behavior-data',
+      data: {
+        behavior: 'approved',
+        timestamp: Date.now(),
+        activityLevel: 'high',
+        action: 'showBanner',
+      },
+    };
   }
 }
