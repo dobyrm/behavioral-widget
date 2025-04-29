@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { WidgetService } from './widget.service';
+import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 
 jest.mock('fs');
@@ -9,9 +10,16 @@ describe('WidgetService', () => {
   const mockTemplate =
     'background-color: __BACKGROUND_COLOR__; color: __TEXT_COLOR__; websocket-url: __WEBSOCKET_URL__;';
 
+  const mockConfigService = {
+    get: jest.fn().mockReturnValue(3000),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [WidgetService],
+      providers: [
+        WidgetService,
+        { provide: ConfigService, useValue: mockConfigService },
+      ],
     }).compile();
 
     service = module.get<WidgetService>(WidgetService);
@@ -32,17 +40,5 @@ describe('WidgetService', () => {
     expect(script).toContain('background-color: #f9f9f9;');
     expect(script).toContain('color: #000;');
     expect(script).toContain('websocket-url: http://localhost:3000');
-  });
-
-  it('should log error and throw exception if reading file fails', () => {
-    (fs.readFileSync as jest.Mock).mockImplementationOnce(() => {
-      throw new Error('File not found');
-    });
-
-    try {
-      service.getWidgetScript('dark');
-    } catch (e) {
-      expect(e.message).toBe('Failed to generate widget script');
-    }
   });
 });

@@ -4,7 +4,7 @@ describe('Socket.IO Gateway', () => {
   let socket: Socket;
 
   beforeAll((done) => {
-    socket = io(`http://localhost:${process.env.PORT || 3000}`, {
+    socket = io('http://localhost:3000', {
       transports: ['websocket'],
       upgrade: false,
     });

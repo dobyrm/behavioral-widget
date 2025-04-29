@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -14,6 +15,8 @@ export class WidgetService {
     'client.widget.script.js',
   );
 
+  constructor(private configService: ConfigService) {}
+
   getWidgetScript(theme: string): string {
     try {
       if (!fs.existsSync(this.templatePath)) {
@@ -24,7 +27,12 @@ export class WidgetService {
 
       const backgroundColor = theme === 'dark' ? '#333' : '#f9f9f9';
       const textColor = theme === 'dark' ? '#fff' : '#000';
-      const websocketUrl = 'http://localhost:3000';
+
+      const port = this.configService.get<number>('APP_PORT');
+      if (!port) {
+        throw new Error('APP_PORT is not defined in .env file');
+      }
+      const websocketUrl = `http://localhost:${port}`;
 
       const finalScript = rawTemplate
         .replace('__BACKGROUND_COLOR__', backgroundColor)
