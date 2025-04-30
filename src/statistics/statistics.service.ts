@@ -63,9 +63,8 @@ export class StatisticsService {
     }
   }
 
-  private store(data: StatisticsData) {
+  private store(data: StatisticsData): void {
     try {
-      // TODO: here persist data to DB or file
       this.logger.debug(data);
     } catch (error) {
       this.logger.error(`Failed to save data. Error: ${error.message}`);
