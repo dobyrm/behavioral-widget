@@ -1,10 +1,6 @@
-export type Name = {
-  name: string;
-};
-
-export type Timestamp = {
-  timestamp: number;
-};
+export type Name = string;
+export type Timestamp = number;
+export type TimeSpentMs = Timestamp;
 
 export type User = {
   ip: string;
@@ -17,13 +13,9 @@ export type Device = {
 };
 
 export type Event = {
-  [key: string]: any;
   type: string;
-  timestamp: number;
-};
-
-export type TimeSpentMs = {
-  timeSpentMs: number;
+  timestamp: Timestamp;
+  [key: string]: any;
 };
 
 export type StatisticsData = object;

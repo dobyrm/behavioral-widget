@@ -94,7 +94,7 @@
     input.type = 'text';
     input.name = 'name';
     input.placeholder = 'Your name';
-    input.required = true;
+    input.required = false;
     Object.assign(input.style, {
       padding: '6px 10px',
       border: '1px solid #ccc',

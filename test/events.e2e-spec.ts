@@ -25,11 +25,18 @@ describe('Socket.IO Gateway', () => {
   });
 
   it('should handle "session-data" message and return "behavior-data"', (done) => {
-    jest.setTimeout(10000);
+    const payload = {
+      user: {
+        ip: '127.0.0.1',
+      },
+      device: {
+        browser: 'Chrome',
+      },
+    };
 
-    socket.emit('session-data', { someData: 'test' });
+    socket.emit('session-data', payload);
 
-    socket.on('behavior-data', (data: { behavior: string }) => {
+    socket.once('behavior-data', (data: { behavior: string }) => {
       expect(data).toHaveProperty('behavior', 'active');
       done();
     });

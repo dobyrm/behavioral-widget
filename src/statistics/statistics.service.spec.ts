@@ -38,29 +38,25 @@ describe('StatisticsService', () => {
   it('should handle user behavior correctly', () => {
     const payload = {
       events: [{ type: 'mousemove', timestamp: 1746003481833 }],
-      timeSpentMs: { timeSpentMs: 500 },
-      timestamp: { timestamp: 1746003481833 },
+      timeSpentMs: 500,
+      timestamp: 1746003481833,
     };
     const result = service.handleUserBehavior(payload);
 
     expect(result).toBeInstanceOf(UserBehaviorDto);
     expect(result.getEvents().length).toBeGreaterThan(0);
-    expect(result.getTimeSpentMs().timeSpentMs).toEqual(
-      payload.timeSpentMs.timeSpentMs,
-    );
+    expect(result.getTimeSpentMs()).toEqual(payload.timeSpentMs);
   });
 
   it('should handle form data correctly', () => {
     const payload = {
-      name: { name: 'Test Form' },
-      timestamp: { timestamp: 1746003481833 },
+      name: 'Test Form',
+      timestamp: 1746003481833,
     };
     const result = service.handleFormData(payload);
 
     expect(result).toBeInstanceOf(FormSubmissionDto);
-    expect(result.getName().name).toEqual(payload.name.name);
-    expect(result.getTimestamp().timestamp).toEqual(
-      payload.timestamp.timestamp,
-    );
+    expect(result.getName()).toEqual(payload.name);
+    expect(result.getTimestamp()).toEqual(payload.timestamp);
   });
 });
