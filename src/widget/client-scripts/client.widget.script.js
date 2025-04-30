@@ -1,6 +1,8 @@
 (() => {
   const sessionData = {
-    ip: '',
+    user: {
+      ip: '',
+    },
     device: {
       browser: navigator.userAgent,
       os: navigator.platform,
@@ -206,12 +208,12 @@
     return fetch('https://api.ipify.org?format=json')
       .then((response) => response.json())
       .then((data) => {
-        sessionData.ip = data.ip;
+        sessionData.user.ip = data.ip;
         sendSessionData(sessionData);
       })
       .catch((error) => {
         console.error('IP fetch error:', error);
-        sessionData.ip = 'Unknown';
+        sessionData.user.ip = 'Unknown';
         sendSessionData(sessionData);
       });
   };

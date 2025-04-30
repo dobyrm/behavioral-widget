@@ -1,9 +1,13 @@
 import {
+  MessageBody,
+  SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-  SubscribeMessage,
-  MessageBody,
 } from '@nestjs/websockets';
+import { StatisticsService } from '../statistics/statistics.service';
+import { ISessionDataPayload } from '../statistics/interfaces/session-data.interface';
+import { IFormDataPayload } from '../statistics/interfaces/form-data.interface';
+import { IUserBehaviorPayload } from '../statistics/interfaces/user-behavior.interface';
 
 @WebSocketGateway({
   cors: {
@@ -11,10 +15,13 @@ import {
   },
 })
 export class EventsGateway {
+  constructor(private readonly statisticsService: StatisticsService) {}
+
   @WebSocketServer()
   @SubscribeMessage('session-data')
-  handleSessionData(@MessageBody() data) {
-    console.log('Session data received:', data);
+  handleSessionData(@MessageBody() data: ISessionDataPayload) {
+    const sessionData = this.statisticsService.handleSessionData(data);
+    console.log(sessionData);
 
     return {
       event: 'behavior-data',
@@ -25,12 +32,9 @@ export class EventsGateway {
   }
 
   @SubscribeMessage('user-behavior')
-  handleUserBehavior(@MessageBody() data) {
-    console.log('User behavior received:', {
-      events: data.events,
-      timeSpentMs: data.timeSpentMs,
-      timestamp: data.timestamp,
-    });
+  handleUserBehavior(@MessageBody() data: IUserBehaviorPayload) {
+    const userBehaviorData = this.statisticsService.handleUserBehavior(data);
+    console.log(userBehaviorData);
 
     return {
       event: 'behavior-data',
@@ -44,8 +48,9 @@ export class EventsGateway {
   }
 
   @SubscribeMessage('form-submission')
-  handleFormSubmission(@MessageBody() data) {
-    console.log('Form submitted:', data);
+  handleFormSubmission(@MessageBody() data: IFormDataPayload) {
+    const formData = this.statisticsService.handleFormData(data);
+    console.log(formData);
 
     return {
       event: 'behavior-data',

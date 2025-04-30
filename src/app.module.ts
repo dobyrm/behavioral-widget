@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { GatewayModule } from './gateway/gateway.module';
 import { WidgetModule } from './widget/widget.module';
 import { EventsModule } from './events/events.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { EventsModule } from './events/events.module';
     GatewayModule,
     WidgetModule,
     EventsModule,
+    StatisticsModule,
   ],
 })
 export class AppModule {}
