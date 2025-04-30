@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GatewayModule } from './gateway/gateway.module';
-import { WidgetModule } from './widget/widget.module';
+import { ClientWidgetModule } from './client-widget/client-widget.module';
 import { EventsModule } from './events/events.module';
 import { StatisticsModule } from './statistics/statistics.module';
 
@@ -12,7 +12,7 @@ import { StatisticsModule } from './statistics/statistics.module';
     }),
     ConfigModule.forRoot(),
     GatewayModule,
-    WidgetModule,
+    ClientWidgetModule,
     EventsModule,
     StatisticsModule,
   ],

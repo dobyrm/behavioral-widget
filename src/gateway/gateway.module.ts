@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { GatewayController } from './gateway.controller';
-import { WidgetModule } from './../widget/widget.module';
+import { ClientWidgetModule } from '../client-widget/client-widget.module';
 
 @Module({
-  imports: [WidgetModule],
+  imports: [ClientWidgetModule],
   controllers: [GatewayController],
 })
 export class GatewayModule {}

@@ -1,21 +1,17 @@
-import { IStatisticsData } from '../interfaces/statistics-data.interface';
-import {
-  IUser,
-  IDevice,
-  ISessionData,
-} from '../interfaces/session-data.interface';
+import { User, Device } from '../types/statistics.type';
+import { ISessionData } from '../interfaces/session-data.interface';
 
-class SessionDataDto implements ISessionData, IStatisticsData {
+class SessionDataDto implements ISessionData {
   constructor(
-    private readonly user: IUser,
-    private readonly device: IDevice,
+    private readonly user: User,
+    private readonly device: Device,
   ) {}
 
-  getUser(): IUser {
+  public getUser(): User {
     return this.user;
   }
 
-  getDevice(): IDevice {
+  public getDevice(): Device {
     return this.device;
   }
 }

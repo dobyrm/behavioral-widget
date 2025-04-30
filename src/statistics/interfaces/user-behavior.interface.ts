@@ -1,25 +1,13 @@
-export interface IEvent {
-  [key: string]: any;
-  type: string;
-  timestamp: number;
-}
-
-export interface ITimeSpentMs {
-  timeSpentMs: number;
-}
-
-export interface ITimestamp {
-  timestamp: number;
-}
+import { Event, TimeSpentMs, Timestamp } from '../types/statistics.type';
 
 export interface IUserBehaviorPayload {
-  events: IEvent[];
-  timeSpentMs: ITimeSpentMs;
-  timestamp: ITimestamp;
+  events: Event[];
+  timeSpentMs: TimeSpentMs;
+  timestamp: Timestamp;
 }
 
 export interface IUserBehavior {
-  getEvents(): IEvent[];
-  getTimeSpentMs(): ITimeSpentMs;
-  getTimestamp(): ITimestamp;
+  getEvents(): Event[];
+  getTimeSpentMs(): TimeSpentMs;
+  getTimestamp(): Timestamp;
 }

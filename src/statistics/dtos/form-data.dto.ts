@@ -1,21 +1,17 @@
-import { IStatisticsData } from '../interfaces/statistics-data.interface';
-import {
-  IName,
-  ITimestamp,
-  IFormData,
-} from '../interfaces/form-data.interface';
+import { Name, Timestamp } from '../types/statistics.type';
+import { IFormData } from '../interfaces/form-data.interface';
 
-class FormSubmissionDto implements IFormData, IStatisticsData {
+class FormSubmissionDto implements IFormData {
   constructor(
-    private readonly name: IName,
-    private readonly timestamp: ITimestamp,
+    private readonly name: Name,
+    private readonly timestamp: Timestamp,
   ) {}
 
-  getName(): IName {
+  public getName(): Name {
     return this.name;
   }
 
-  getTimestamp(): ITimestamp {
+  public getTimestamp(): Timestamp {
     return this.timestamp;
   }
 }

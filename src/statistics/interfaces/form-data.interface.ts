@@ -1,17 +1,10 @@
-export interface IName {
-  name: string;
-}
-
-export interface ITimestamp {
-  timestamp: number;
-}
-
+import { Name, Timestamp } from '../types/statistics.type';
 export interface IFormDataPayload {
-  name: IName;
-  timestamp: ITimestamp;
+  name: Name;
+  timestamp: Timestamp;
 }
 
 export interface IFormData {
-  getName(): IName;
-  getTimestamp(): ITimestamp;
+  getName(): Name;
+  getTimestamp(): Timestamp;
 }

@@ -1,19 +1,11 @@
-export interface IUser {
-  ip: string;
-}
-
-export interface IDevice {
-  browser: string;
-  os: string;
-  cookies: string;
-}
+import { User, Device } from '../types/statistics.type';
 
 export interface ISessionDataPayload {
-  user: IUser;
-  device: IDevice;
+  user: User;
+  device: Device;
 }
 
 export interface ISessionData {
-  getUser(): IUser;
-  getDevice(): IDevice;
+  getUser(): User;
+  getDevice(): Device;
 }

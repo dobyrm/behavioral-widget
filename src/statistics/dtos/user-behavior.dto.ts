@@ -1,27 +1,22 @@
-import { IStatisticsData } from '../interfaces/statistics-data.interface';
-import {
-  IEvent,
-  ITimeSpentMs,
-  ITimestamp,
-  IUserBehavior,
-} from '../interfaces/user-behavior.interface';
+import { Event, TimeSpentMs, Timestamp } from '../types/statistics.type';
+import { IUserBehavior } from '../interfaces/user-behavior.interface';
 
-class UserBehaviorDto implements IUserBehavior, IStatisticsData {
+class UserBehaviorDto implements IUserBehavior {
   constructor(
-    private readonly events: IEvent[],
-    private readonly timeSpentMs: ITimeSpentMs,
-    private readonly timestamp: ITimestamp,
+    private readonly events: Event[],
+    private readonly timeSpentMs: TimeSpentMs,
+    private readonly timestamp: Timestamp,
   ) {}
 
-  getEvents(): IEvent[] {
+  public getEvents(): Event[] {
     return this.events;
   }
 
-  getTimeSpentMs(): ITimeSpentMs {
+  public getTimeSpentMs(): TimeSpentMs {
     return this.timeSpentMs;
   }
 
-  getTimestamp(): ITimestamp {
+  public getTimestamp(): Timestamp {
     return this.timestamp;
   }
 }

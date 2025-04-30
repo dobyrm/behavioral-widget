@@ -2,12 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
-import { WidgetService } from './../src/widget/widget.service';
+import { ClientWidgetService } from '../src/client-widget/client-widget.service';
 import { Server } from 'http';
 
 describe('GatewayController', () => {
   let app: INestApplication;
-  let widgetService: WidgetService;
+  let widgetService: ClientWidgetService;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -15,13 +15,14 @@ describe('GatewayController', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    widgetService = moduleFixture.get<WidgetService>(WidgetService);
+    widgetService = moduleFixture.get<ClientWidgetService>(ClientWidgetService);
     await app.init();
   });
 
-  it('should return "client.widget.js"', async () => {
+  it('should return the correct widget script based on theme', async () => {
     const theme = 'dark';
-    const script = widgetService.getWidgetScript(theme);
+    const mockRequest = { getTheme: () => theme };
+    const script = widgetService.getClientWidget(mockRequest).getScript();
 
     const response = await request(app.getHttpServer() as Server)
       .get(`/gateway/widget.js?theme=${theme}`)
